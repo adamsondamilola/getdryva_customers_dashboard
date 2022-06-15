@@ -1,0 +1,139 @@
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+        <div class="col-xl-12 col-12">
+            <div class="">
+                <div class="box-header">
+                    <h4 class="box-title">Update Profile</h4>
+                   </div>
+                <div class="box-body">
+                    <div class="row mb-20">
+                      <div class="row justify-content-center">
+
+
+                              <div class="col-12 col-lg-12 col-xl-6">
+                                <div class="box">
+                               <div class="box-body box-profile">
+
+                                <div class="row">
+
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label class="form-label">First Name</label>
+                                      <input [(ngModel)]="form.first_name" class="form-control"/>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                      <div class="form-group">
+                                        <label class="form-label">Last Name</label>
+                                        <input [(ngModel)]="form.last_name" class="form-control"/>
+                                      </div>
+                                      </div>
+
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <label class="form-label">Phone</label>
+                                          <input [(ngModel)]="form.phone" class="form-control"/>
+                                        </div>
+                                        </div>
+
+
+                                        <div class="col-md-12">
+                                          <div class="form-group">
+                                            <label class="form-label">Email</label>
+                                            <input [(ngModel)]="form.email" class="form-control" readonly/>
+                                          </div>
+                                          </div>
+
+                                        </div>
+
+                                <div class="row">
+<!--
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label class="form-label">Company Name</label>
+                                      <input readonly value="{{company.name}}" class="form-control"/>
+                                    </div>
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="form-label">Company Phone</label>
+                                        <input readonly value="{{company.phone}}" class="form-control"/>
+                                      </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label class="form-label">Company Email</label>
+                                          <input readonly value="{{company.email}}" class="form-control"/>
+                                        </div>
+                                        </div>
+
+
+
+                                    <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">State</label>
+                                    <input readonly value="{{company.state}}" class="form-control" />
+                                   </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">City</label>
+                                    <input readonly value="{{company.city}}" class="form-control"/>
+                                  </div>
+                                  </div>
+
+
+                                    <div class="form-group">
+                                      <label class="form-label">Company Address</label>
+                                      <textarea readonly class="form-control">
+                                        {{company.address}}
+                                      </textarea>
+                                    </div>
+                                  -->
+                                  <div class="col-md-12 text-center">
+                                    <div class="col-md-12" *ngIf="error != null">
+                                      <div class="alert alert-danger" role="alert">
+                                        {{error}}
+                                      </div>
+                                    </div>
+                                    <span *ngIf="buttonClicked">Please Wait...</span>
+                                    <button *ngIf="!buttonClicked" (click)="updateProfileAction()" type="button" class="btn btn-primary  btn-block">
+                                      <i class="ti-save-alt"></i> Update and Save
+                                    </button>
+
+                                    </div>
+
+                                </div>
+
+                               </div>
+                               <!-- /.box-body -->
+                               </div>
+
+
+                             </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+</section>
+</div>
+</div>
+<div class="control-sidebar-bg"></div>
+</div>

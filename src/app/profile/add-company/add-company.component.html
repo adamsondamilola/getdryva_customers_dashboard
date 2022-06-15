@@ -1,0 +1,108 @@
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+      <div class="col-xl-12">
+                <div class="box-header">
+                    <h4 class="box-title">Add Company Details</h4>
+                   </div>
+
+                   <div *ngIf="customer.status==0" class="row">
+                        <div class="col-md-12 progress text-center">
+                          <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuemin="0" style="width: 50%;" aria-valuenow="50" aria-valuemax="100"><b>50%</b></div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-20 mt-20">
+                      <div class="row justify-content-center">
+                        <div class="col-12 col-lg-12 col-xl-8">
+                          <div class="box">
+                            <div class="box-body">
+
+                             <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label class="form-label">Company Name</label>
+                                      <input [(ngModel)]="form.name" class="form-control"/>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="form-label">Company Logo</label>
+                                        <input type="file" (change)="fileChangeEvent($event)" class="form-control" accept="image/x-png,image/gif,image/jpeg"/>
+                                      </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                      <div class="form-group">
+                                        <label class="form-label">Company Phone</label>
+                                        <input [(ngModel)]="form.phone" class="form-control"/>
+                                      </div>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label class="form-label">Company Email</label>
+                                          <input [(ngModel)]="form.email" class="form-control"/>
+                                        </div>
+                                        </div>
+
+
+
+                                    <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">State</label>
+                                    <select [(ngModel)]="form.state" (ngModelChange)="findCity()" class="form-select">
+                                    <option *ngFor="let state of states" value={{state.state}}>{{state.state}}</option>
+                                    </select>
+                                  </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                  <div class="form-group">
+                                    <label class="form-label">City</label>
+                                    <!-- <input [(ngModel)]="form.city" class="form-control"/> -->
+                                   <select [(ngModel)]="form.city" class="form-select">
+                                    <option *ngFor="let city of cities" value={{city}}>{{city}}</option>
+                                    </select>
+                                  </div>
+                                  </div>
+
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                      <label class="form-label">Company Address</label>
+                                      <textarea [(ngModel)]="form.address" class="form-control"></textarea>
+                                    </div>
+
+                                    <div class="col-md-12" *ngIf="error != null">
+                                      <div class="alert alert-danger" role="alert">
+                                        {{error}}
+                                      </div>
+                                    </div>
+                                    <span *ngIf="buttonClicked">Please Wait...</span>
+                                    <button *ngIf="!buttonClicked" (click)="addCompanyAction()" type="button" class="btn btn-primary btn-block">
+                                      <i class="ti-save-alt"></i> Save and Submit
+                                    </button>
+
+                                    </div>
+
+                                </div>
+
+                               </div>
+                               <!-- /.box-body -->
+                               </div>
+
+
+                             </div>
+</div>
+                    </div>
+            </div>
+</div>
+</section>
+</div>
+</div>
+<div class="control-sidebar-bg"></div>
+</div>

@@ -1,0 +1,283 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">xLogistics...</p>
+</ngx-spinner>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+
+
+      <div class="col-12">
+        <div class="row">
+        <div class="box-header with-border">
+          <h4 class="box-title text-primary"><i class="fa fa-list"></i> Order Details </h4>
+        </div>
+        <!-- /.box-header -->
+
+        <div class="col-md-6">
+            <div class="box">
+              <div class="table-responsive">
+              <table class="table table-striped mb-0">
+                <tbody>
+                  <tr *ngIf="order.service_type=='Trucking'">
+                    <th>Tracking ID</th>
+                    <td>{{tracking.order.tracking_id}}</td>
+                  </tr>
+                <tr>
+                  <th>Status</th>
+                  <td><span class="badge badge-pill badge-danger" *ngIf="order.status==0">Pending Review</span>
+                    <span class="badge badge-pill badge-primary" *ngIf="order.status==1">Pending Payment</span>
+                    <span class="badge badge-pill badge-success" *ngIf="order.status==2">Processing</span>
+                    <span class="badge badge-pill badge-warning" *ngIf="order.status==3">Completed</span>
+                    <span class="badge badge-pill badge-info" *ngIf="order.status==4">Rejected</span></td>
+                </tr>
+                <tr *ngIf="order.service_type!='Trucking'">
+                  <th>Product</th>
+                  <td>{{order.product_name}}</td>
+                </tr>
+                <tr>
+                  <th>Product Description</th>
+                  <td>{{order.product_description}}</td>
+                </tr>
+                <tr>
+                  <th>Material Type</th>
+                  <td>
+                    <span *ngIf="order.is_fragile==1">Fragile <i class="fa fa-check text-success"></i><br></span>
+                  <span *ngIf="order.is_fragile==0">Fragile <i class="fa fa-times text-danger"></i><br></span>
+                  <span *ngIf="order.is_explosive==1">Explosive <i class="fa fa-check text-success"></i><br></span>
+                  <span *ngIf="order.is_explosive==0">Explosive <i class="fa fa-times text-danger"></i><br></span>
+                  <span *ngIf="order.is_hazardous==1">Hazardous <i class="fa fa-check text-success"></i><br></span>
+                  <span *ngIf="order.is_hazardous==0">Hazardous <i class="fa fa-times text-danger"></i><br></span>
+                  <span *ngIf="order.is_dangerous==1">Dangerous <i class="fa fa-check text-success"></i><br></span>
+                  <span *ngIf="order.is_dangerous==0">Dangerous <i class="fa fa-times text-danger"></i><br></span>
+                </td>
+                </tr>
+                <tr>
+                  <th>Service Type</th>
+                  <td>{{order.service_type}}</td>
+                </tr>
+                <tr *ngIf="order.service_type=='Trucking'">
+                  <th>Truck Type</th>
+                  <td>{{order.truck_type}}</td>
+                </tr>
+                <tr *ngIf="order.service_type=='Trucking'">
+                  <th>Tonnage</th>
+                  <td>{{order.tonnage}}</td>
+                </tr>
+                <tr *ngIf="order.service_type!='Trucking'">
+                  <th>Storage Type</th>
+                  <td>{{order.warehousing_type}}</td>
+                </tr>
+                <tr *ngIf="order.service_type!='Trucking'">
+                  <th>Size</th>
+                  <td>{{order.size}}</td>
+                </tr>
+                <tr *ngIf="order.service_type!='Trucking'">
+                  <th>Duration</th>
+                  <td>{{order.duration}} Days</td>
+                </tr>
+                <tr *ngIf="order.service_type!='Trucking'">
+                  <th>Location</th>
+                  <td>{{order.start_point_state}}, {{order.start_point_city}}</td>
+                </tr>
+                <tr>
+                  <th>Cost</th>
+                  <td>{{formatNum(order.cost)}}</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </div>
+        </div>
+
+
+<div class="col-md-6">
+  <div class="box" *ngIf="order.service_type=='Trucking'">
+    <div class="box-header with-border badge-warning">
+      <h4 class="box-title text-white"><i class="fa fa-car"></i> Tracking Details </h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped mb-0">
+         <tbody>
+          </tbody>
+          <tbody>
+         <tr>
+          <th>Tracking ID</th>
+          <th>Status</th>
+          </tr>
+        <tr>
+          <td>{{tracking.order.tracking_id}}</td>
+          <td *ngIf="tracking.route_details.status != null">{{tracking.route_details.status}}</td>
+          <td *ngIf="tracking.route_details.status == null">Pending</td>
+        </tr>
+        <tr>
+          <th>Driver</th>
+          <th>Phone</th>
+          </tr>
+          <tr *ngIf="tracking.driver_details.fname != null">
+          <th>{{tracking.driver_details.fname}} {{tracking.driver_details.lname}}</th>
+          <td>{{tracking.driver_details.phone}}</td>
+        </tr>
+        <tr *ngIf="tracking.driver_details.fname == null">
+          <td colspan="2" class="text-center"> Driver Not assigned </td>
+          </tr>
+        <tr>
+          <th>Location</th>
+          <th>Date</th>
+          </tr>
+          <!--<tr *ngIf="tracking.route_logs.location != null">
+            <td colspan="2" class="text-center"> {{tracking.route_logs.location}} </td>
+            </tr>-->
+            <tr *ngFor="let x of tracking.route_logs">
+              <td> {{x.location}} </td>
+              <td> {{x.updated_at | date:'medium'}} </td>
+              </tr>
+            <tr *ngIf="tracking.route_logs == null">
+              <td colspan="2" class="text-center"> Route Not assigned </td>
+              </tr>
+          </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+
+
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <div class="col-md-6" *ngIf="order.service_type=='Trucking'">
+        <div class="box">
+        <div class="box-header with-border">
+          <h4 class="box-title text-primary"><i class="fa fa-truck"></i> Shipping Information </h4>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <tbody>
+                <tr>
+                  <th> </th>
+                  <th>Start Point</th>
+                  <th>End Point</th>
+                </tr>
+                <tr>
+                  <th>State</th>
+                  <td>{{order.start_point_state}}</td>
+                  <td>{{order.end_point_state}}</td>
+                </tr>
+              <tr>
+                <th>City</th>
+                <td>{{order.start_point_city}}</td>
+                <td>{{order.end_point_city}}</td>
+              </tr>
+              <tr>
+                <th>Address</th>
+                <td>{{order.start_point_address}}</td>
+                <td>{{order.end_point_address}}</td>
+              </tr>
+              <tr>
+                <th> </th>
+                <th class="text-primary">Shipping Date</th>
+                <th class="text-primary">Shipping Status</th>
+              </tr>
+              <tr>
+                <th> </th>
+                <td>{{routeDetails.updated_at | date:'medium'}}</td>
+                <td>{{routeDetails.status}}</td>
+              </tr>
+              </tbody>
+          </table>
+          </div>
+        </div>
+        <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+
+      <div class="col-md-6">
+        <div class="box">
+        <div class="box-header with-border">
+          <h4 class="box-title text-primary"><i class="fa fa-user"></i> Vendor Details </h4>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <tbody *ngIf="vendor==null">
+              <tr>
+<th>No vendor associated with order yet</th>
+              </tr>
+            </tbody>
+            <tbody *ngIf="vendor!=null">
+              <tr>
+                <th>Name</th>
+                <td>{{vendor.name}}</td>
+              </tr>
+            <tr>
+              <th>Phone</th>
+              <td> {{vendor.phone}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="box" *ngIf="order.service_type=='Trucking'">
+        <div class="box-header with-border">
+          <h4 class="box-title text-primary"><i class="fa fa-car"></i> Driver Details </h4>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+             <tbody *ngIf="driverDetails==null">
+<tr>
+                <th colspan="2">Driver information not available</th>
+              </tr>
+              </tbody>
+              <tbody *ngIf="driverDetails!=null">
+             <tr>
+                <th>Name</th>
+                <td>{{driverDetails.fname}} {{driverDetails.lname}}</td>
+              </tr>
+            <tr>
+              <th>Phone</th>
+              <td>{{driverDetails.phone}}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{{driverDetails.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+      <!--<div class="col-4">
+        <div class="box bg-success">
+          <div class="box-header">
+            <h4 class="box-title text-white">Delivery Progress</h4>
+          </div>
+          <div class="box-body">
+            <circle-progress [percent]="20" [radius]="100" [outerStrokeWidth]="20" [innerStrokeWidth]="10"
+            [outerStrokeColor]="'#FFFF00'" [innerStrokeColor]="'#FFFFFF'" [animation]="true" [animationDuration]="300"
+            ></circle-progress>
+          </div>
+        </div>
+      </div>-->
+
+
+
+
+
+</div>
+</section>
+</div>
+</div>
+</div>

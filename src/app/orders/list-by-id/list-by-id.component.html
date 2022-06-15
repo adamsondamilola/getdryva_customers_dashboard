@@ -1,0 +1,62 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">xLogistics...</p>
+</ngx-spinner>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+
+      <div class="col-12">
+  <div class="row">
+  <div class="box-header with-border">
+    <h4 class="box-title">Orders</h4>
+    <div class="box-controls pull-right">
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-12 col-xl-8">
+      <div class="box mt-10">
+    <div class="table-responsive">
+      <table class="table table-hover">
+      <tbody>
+        <tr>
+          <th>Order Tracking ID</th>
+          <td colspan="2">{{id}}</td>
+        </tr>
+        <tr>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+      <tr *ngFor="let item of orders">
+        <td><a href="javascript:void(0)">{{item.service_type}}</a></td>
+        <td><span class="badge badge-pill badge-danger" *ngIf="item.status==0">Pending Review</span>
+        <span class="badge badge-pill badge-primary" *ngIf="item.status==1">Pending Payment</span>
+        <span class="badge badge-pill badge-warning" *ngIf="item.status==2">Proccessing</span>
+        <span class="badge badge-pill badge-success" *ngIf="item.status==3">Completed</span></td>
+        <td><button (click)="viewOrderAction(item.id)" class="btn btn-sm btn-primary m-2">Details</button>
+          <button class="btn btn-sm btn-danger m-2" (click)="deleteOrderAction(item.id)" *ngIf="item.status==0">Delete</button> </td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+  <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>

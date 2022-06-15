@@ -1,0 +1,383 @@
+<style>
+.topCorner{
+position: absolute;
+top: -3px;
+left: 0;
+}
+</style>
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">xLogistics...</p>
+</ngx-spinner>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+  <div *ngIf="customer.status==0" class="row">
+<h4>Your account is pending review</h4>
+    <div class="col-md-12 progress text-center">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuemin="0" style="width: 80%;" aria-valuenow="80" aria-valuemax="100"><b>80%</b></div>
+    </div>
+    <!-- <div class="col-md-6">
+        <div class="alert alert-danger" role="alert">
+     Your account is pending review.
+        </div>
+    </div>-->
+</div>
+
+
+
+    <div class="row">
+      <div class="col-xl-12 col-12">
+        <div class="row">
+            <h2 class="box-title mb-10">Hi {{customer.first_name}},</h2>
+            <h4 class="box-title">What would you like to do today? </h4>
+          </div>
+           <div class="row mb-20">
+            <div class="col-xl-4 col-lg-6 col-12">
+                      <a [routerLink]="['/add_order']">
+                        <div class="card bg-success">
+                          <div class="box-body ">
+                            <div class="d-flex justify-content-left">
+                              <div>
+                                <h6 class="my-0 w-40 h-40 bg-white rounded-circle text-center l-h-40"><i class="fa fa-plus fa-2x mt-2 text-success"></i></h6>
+                              </div>
+                              <h4 class="mt-2 ml-15 text-center"> &nbsp; Make a New Order</h4>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-12">
+                      <a [routerLink]="['/orders']">
+                        <div class="card bg-success">
+                          <div class="box-body text-center">
+                            <div class="d-flex justify-content-left">
+                              <div>
+                                <h6 class="my-0 w-40 h-40 bg-white rounded-circle text-center l-h-40"><i class="fa fa-truck fa-2x mt-2 text-success"></i></h6>
+                              </div>
+                              <h4 class="mt-2 ml-15 text-center"> &nbsp; Track An Order</h4>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-6 col-12">
+                      <a [routerLink]="['/reports']">
+                        <div class="card bg-success">
+                          <div class="box-body">
+                            <div class="d-flex justify-content-left">
+                              <div>
+                                <h6 class="my-0 w-40 h-40 bg-white rounded-circle text-center l-h-40"><i class="fa fa-list fa-2x mt-2 text-success"></i></h6>
+                              </div>
+                              <h4 class="mt-2 ml-15"> &nbsp; View Your Reports</h4>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                </div>
+
+
+
+
+<div class="row mb-6">
+  <h4 class="box-title">Your Recent Orders</h4>
+  <div class="col-xl-4 col-lg-6 col-12">
+<div class="box">
+<h4 class="m-5 mb-20">&nbsp;&nbsp;Recent Orders</h4>
+<div class="table-responsive">
+<table class="table table-striped m-10">
+<tr>
+<td>Order Date</td>
+<td>Order ID</td>
+<!-- <td>Order Type</td>-->
+<td>Status</td>
+</tr>
+<tbody>
+<tr (click)="viewOrderAction(item.tracking_id)" *ngFor="let item of orders">
+<td> <span class="text-dark">{{formatOrderDate(item.date_added)}}</span></td>
+<td>{{item.tracking_id}}</td>
+<!--<td>{{item.service_type}}</td>-->
+<td><span class="badge badge-pill badge-danger" *ngIf="item.status==0">Pending Review</span>
+<span class="badge badge-pill badge-primary" *ngIf="item.status==1">Pending Payment</span>
+<span class="badge badge-pill badge-warning" *ngIf="item.status==2">Proccessing</span>
+<span class="badge badge-pill badge-success" *ngIf="item.status==3">Completed</span></td>
+</tr>
+<tr *ngIf="orders == null || orders == ''">
+<td colspan="4">No order found!</td>
+</tr>
+</tbody>
+</table>
+</div>
+  </div>
+</div>
+
+
+
+  <div class="col-xl-4 col-lg-6">
+    <div class="box">
+    <h4 class="m-5 mb-20">&nbsp;&nbsp;Trucking Orders</h4>
+    <div class="table-responsive">
+    <table class="table table-striped m-10">
+    <tr>
+      <td>Order Date</td>
+      <td>Order ID</td>
+     <!-- <td>Order Type</td>-->
+       <td>Status</td>
+    </tr>
+    <tbody>
+      <tr (click)="viewOrderAction(item.tracking_id)" *ngFor="let item of trucking_orders">
+            <td> <span class="text-dark">{{formatOrderDate(item.date_added)}}</span></td>
+            <td>{{item.tracking_id}}</td>
+            <!--<td>{{item.service_type}}</td>-->
+            <td><span class="badge badge-pill badge-danger" *ngIf="item.status==0">Pending Review</span>
+              <span class="badge badge-pill badge-primary" *ngIf="item.status==1">Pending Payment</span>
+              <span class="badge badge-pill badge-warning" *ngIf="item.status==2">Proccessing</span>
+              <span class="badge badge-pill badge-success" *ngIf="item.status==3">Completed</span></td>
+          </tr>
+          <tr *ngIf="trucking_orders == null || trucking_orders == ''">
+        <td colspan="4">No order found!</td>
+          </tr>
+      </tbody>
+    </table>
+    </div>
+                          </div>
+</div>
+
+
+
+                          <div class="col-xl-4 col-lg-6">
+                            <div class="box">
+                            <h4 class="m-5 mb-20">&nbsp;&nbsp;Warehousing Orders</h4>
+                            <div class="table-responsive">
+                            <table class="table table-striped m-10">
+                            <tr>
+                              <td>Order Date</td>
+                              <td>Order ID</td>
+                             <!-- <td>Order Type</td>-->
+                               <td>Status</td>
+                            </tr>
+                            <tbody>
+                              <tr (click)="viewOrderAction(item.tracking_id)" *ngFor="let item of warehousing_orders">
+                                    <td> <span class="text-dark">{{formatOrderDate(item.date_added)}}</span></td>
+                                    <td>{{item.tracking_id}}</td>
+                                    <!--<td>{{item.service_type}}</td>-->
+                                    <td><span class="badge badge-pill badge-danger" *ngIf="item.status==0">Pending Review</span>
+                                      <span class="badge badge-pill badge-primary" *ngIf="item.status==1">Pending Payment</span>
+                                      <span class="badge badge-pill badge-warning" *ngIf="item.status==2">Proccessing</span>
+                                      <span class="badge badge-pill badge-success" *ngIf="item.status==3">Completed</span></td>
+                                  </tr>
+                                  <tr *ngIf="warehousing_orders == null || warehousing_orders == ''">
+                                <td colspan="4">No order found!</td>
+                                  </tr>
+                              </tbody>
+                            </table>
+                            </div>
+                        </div>
+                      </div>
+</div>
+
+<div *ngIf="pendingAmount>0" class="row">
+  <div class="col-xl-12 col-12">
+    <div class="box">
+<div class="box-header">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table class="table ">
+        <tbody>
+          <tr>
+            <td colspan="2">You have a pending order</td>
+          </tr>
+          <tr>
+            <td>Total Amount</td>
+            <th>{{formatNum(pendingAmount)}}</th>
+          </tr>
+          <tr>
+            <td> Details below </td>
+            <td> <button (click)="makePayment()" class="btn btn-sm btn-block btn-warning">Make Payment</button> </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!----->
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Cost</th>
+          </tr>
+          <tr *ngFor="let item of pendingOrderPayment">
+            <td><a href="javascript:void(0)">{{item.service_type}}</a></td>
+            <td>
+              <span class="badge badge-pill badge-danger" *ngIf="item.status==0">Pending Review</span>
+              <span class="badge badge-pill badge-primary" *ngIf="item.status==1">Pending Payment</span>
+              <span class="badge badge-pill badge-warning" *ngIf="item.status==2">Proccessing</span>
+              <span class="badge badge-pill badge-success" *ngIf="item.status==3">Completed</span>
+            </td>
+            <td>
+              {{formatNum(item.cost)}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!---->
+  </div>
+</div>
+</div>
+  </div>
+</div>
+
+        <div class="row mb-20">
+          <h4 class="box-title">Order Statistics</h4>
+          <!-- <div class="box-header with-border">
+            <h4 class="box-title">Order Statistics</h4>
+          </div>-->
+
+             <!-- <div *ngIf="counter.total>0" style="height:1000;">
+                <google-chart [data]="pieChart"></google-chart>
+              </div>-->
+
+
+              <div (click)="viewOrderList('orders')" class="col-xl-4 col-lg-6 col-12">
+                <div class="box">
+                  <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                      <div class="topCorner w-30 h-30 bg-warning rounded-circle text-center fs-24 l-h-30"><i class="fa fa-list text-center fs-4"></i></div>
+                      </div>
+                      <p style="font-size: 4rem;" class="fw-800 text-dark text-center mt-10">00{{counter.total}}</p>
+                      <p class="fs-14 text-center" style="margin-top: -25px;">Orders In Total</p>
+                  </div>
+                </div>
+              </div>
+
+             <!-- <div (click)="viewOrderList('pending_orders')" class="col-xl-3 col-lg-6">
+                <div class="box">
+                  <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                      <h3 class="my-0 fw-600 text-dark">{{counter.pending}}</h3>
+                      <div class="w-40 h-40 bg-danger rounded-circle text-center fs-24 l-h-40">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                    </div>
+                    <p class="fs-18 mt-10">Pending Orders</p>
+                  </div>
+                </div>
+              </div>-->
+
+              <div (click)="viewOrderList('processing_orders')" class="col-xl-4 col-lg-6 col-12">
+                <div class="box">
+                  <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                      <div style="padding-top:-20px;" class="topCorner w-30 h-30 bg-warning rounded-circle text-center fs-24 l-h-30"><i class="fa fa-info text-center fs-4"></i></div>
+                      </div>
+                       <p style="font-size: 4rem;" class="fw-800 text-dark text-center mt-10">00{{counter.processing}}</p>
+                    <p class="fs-14 text-center" style="margin-top: -25px;">Orders In Progress </p>
+                  </div>
+                </div>
+              </div>
+
+              <div (click)="viewOrderList('completed_orders')" class="col-xl-4 col-lg-6">
+                <div class="box">
+                  <div class="box-body">
+                    <div class="d-flex justify-content-between">
+                      <div style="padding-top:-20px;" class="topCorner w-30 h-30 bg-warning rounded-circle text-center fs-24 l-h-30"><i class="fa fa-check text-center fs-4"></i></div>
+                      </div>
+                      <p style="font-size: 4rem;" class="fw-800 text-dark text-center mt-10">00{{counter.completed}}</p>
+                      <p class="fs-14 text-center" style="margin-top: -25px;">Orders Completed</p>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+
+    <div class="row">
+      <h4 class="box-title">Recent Order Trends</h4>
+
+              <div class="col-xl-6 col-lg-6">
+                <div class="box">
+                  <div class="box-body">
+<div class="input-group">
+<div class="input-group-prepend"><span class="input-group-text">Filter</span> </div>
+<div>
+  <select class="form-control" [(ngModel)]="form.duration" (ngModelChange)="filterOrderListAction($event.value)">
+    <option value="6">Jan - Jun</option>
+    <option value="12">Jul - Dec</option>
+  </select>
+</div>
+</div>
+
+                    <div style="display: block; height: 266px;">
+
+                      <canvas baseChart
+                      [data]="barChartData"
+                      [options]="barChartOptions"
+                      [plugins]="barChartPlugins"
+                      [type]="barChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+                    </canvas>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6">
+                <div class="box">
+                  <div class="box-body">
+                    <div style="display: block;">
+
+                      <canvas baseChart
+              [data]="pieChartData"
+              [type]="pieChartType"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins">
+      </canvas>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+    <div class="box position-static">
+
+
+
+
+      <!-- <div class="box-header">
+
+        <div class="input-group mb-3">
+          <input class="form-control" [(ngModel)]="tracking_id" type="text" placeholder="Order ID" name="s">
+          <button (click)="trackingOrderAction(tracking_id)" class="btn btn-primary btn-sm">Track</button>
+        </div>
+      </div>-->
+<!---->
+    </div>
+
+
+
+  </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+</section>
+</div>
+</div>
+<div class="control-sidebar-bg"></div>
+</div>
+

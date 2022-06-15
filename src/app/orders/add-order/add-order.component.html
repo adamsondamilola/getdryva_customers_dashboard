@@ -1,0 +1,371 @@
+<style>
+/*Icon progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: lightgrey;
+}
+
+#progressbar .active {
+    color: #f7c600;
+}
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 15px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+}
+
+/*Icons in the ProgressBar*/
+#progressbar #account:before {
+    font-family: FontAwesome;
+    content: "\f1c0";
+}
+
+#progressbar #personal:before {
+    font-family: FontAwesome;
+    content: "\f0d1";
+}
+
+#progressbar #payment:before {
+    font-family: FontAwesome;
+    content: "\f030";
+}
+
+#progressbar #confirm:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+}
+
+/*Icon ProgressBar before any progress*/
+#progressbar li:before {
+    width: 30px;
+    height: 30px;
+    line-height: 25px;
+    display: block;
+    font-size: 20px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+}
+
+/*ProgressBar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    z-index: -1;
+}
+
+/*Color number of the step and the connector before it*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #f7c600;
+}
+
+</style>
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+        <div class="col-xl-12 col-12">
+            <div class="row">
+                <div class="box-header">
+                    <h4 class="box-title">Add New Order</h4>
+                   </div>
+                <div class="box-body">
+                    <div class="row mb-20">
+                      <div class="row justify-content-center">
+<!-- <div class="col-xl-4 col-lg-6 justify-content-center">
+  <ul *ngIf="!progressBar_" id="progressbar">
+    <li class="active text-center" id="account"><strong style="font-size: 12px;">Product</strong></li>
+    <li id="personal" class="text-center"><strong style="font-size: 12px;">Logistics</strong></li>
+    <li id="confirm" class="text-center"><strong style="font-size: 12px;">Submit</strong></li>
+</ul>
+<ul *ngIf="progressBar_" id="progressbar">
+  <li class="text-center" id="account"><strong style="font-size: 12px;">Product</strong></li>
+  <li id="personal" class="active text-center"><strong style="font-size: 12px;">Logistics</strong></li>
+  <li id="confirm" class="text-center"><strong style="font-size: 12px;">Submit</strong></li>
+</ul>
+<div *ngIf="!progressBar_" class="progress text-center">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuemin="0" style="width: 0%;" aria-valuenow="0" aria-valuemax="100"><b>0%</b></div>
+</div>
+<div *ngIf="progressBar_" class="progress text-center">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" aria-valuemin="0" style="width: 40%;" aria-valuenow="40" aria-valuemax="100"><b>40%</b></div>
+</div>
+</div>-->
+<div class="col-12 col-lg-12 col-xl-8">
+  <div class="box">
+    <div class="box-body box-profile">
+
+<!--Form starts-->
+     <div *ngIf="firstForm" class="row">
+
+
+       <div class="col-md-12">
+         <div class="form-group">
+           <label class="form-label">Product Description</label>
+           <textarea [(ngModel)]="form.product_description" class="form-control"></textarea>
+         </div>
+         </div>
+
+         <div class="col-md-12">
+           <div class="form-group">
+             <label class="form-label">Service Type</label>
+             <select [(ngModel)]="form.service_type" class="form-select">
+               <option *ngFor="let service of serviceType" value={{service}}>{{service}}</option>
+               </select>
+           </div>
+           </div>
+
+<div class="row text-center">
+           <div class="col-md-6">
+             <label class="form-label"> Is Product Fragile?</label>
+             <label class="form-label m-2 text-success" *ngIf="is_fragile==1"> <i class="fa fa-check"></i></label>
+             <label class="form-label m-2 text-danger" *ngIf="is_fragile==0"> <i class="fa fa-times"></i></label>
+               <div class="form-group" *ngIf="is_fragile==null">
+                 <button style="width:40%;" (click)="isFragile()" class="btn btn-success btn-block m-2">Yes</button>
+                 <button style="width:40%;" (click)="notFragile()" class="btn btn-secondary btn-block m-2">No</button>
+           </div>
+             </div>
+
+             <div class="col-md-6">
+               <label class="form-label"> Is Product Dangerous?</label>
+               <label class="form-label m-2 text-success" *ngIf="is_dangerous==1"> <i class="fa fa-check"></i></label>
+               <label class="form-label m-2 text-danger" *ngIf="is_dangerous==0"> <i class="fa fa-times"></i></label>
+                 <div class="form-group" *ngIf="is_dangerous==null">
+                   <button style="width:40%;" (click)="isDangerous()" class="btn btn-success btn-block m-2">Yes</button>
+                   <button style="width:40%;" (click)="notDangerous()" class="btn btn-secondary btn-block m-2">No</button>
+             </div>
+               </div>
+
+               <div class="col-md-6">
+                 <label class="form-label"> Is Product Hazardous?</label>
+                 <label class="form-label m-2 text-success" *ngIf="is_hazardous==1"> <i class="fa fa-check"></i></label>
+                 <label class="form-label m-2 text-danger" *ngIf="is_hazardous==0"> <i class="fa fa-times"></i></label>
+                   <div class="form-group" *ngIf="is_hazardous==null">
+                     <button style="width:40%;" (click)="isHazardous()" class="btn btn-success btn-block m-2">Yes</button>
+                     <button style="width:40%;" (click)="notHazardous()" class="btn btn-secondary btn-block m-2">No</button>
+               </div>
+                 </div>
+
+                 <div class="col-md-6">
+                   <label class="form-label"> Is Product Explosive?</label>
+                   <label class="form-label m-2 text-success" *ngIf="is_explosive==1"> <i class="fa fa-check"></i></label>
+                   <label class="form-label m-2 text-danger" *ngIf="is_explosive==0"> <i class="fa fa-times"></i></label>
+                     <div class="form-group" *ngIf="is_explosive==null">
+                       <button style="width:40%;" (click)="isExplosive()" class="btn btn-success btn-block m-2">Yes</button>
+                       <button style="width:40%;" (click)="notExplosive()" class="btn btn-secondary btn-block m-2">No</button>
+                 </div>
+                   </div>
+                   <!-- <div class="col-md-12">
+                     <div class="form-group">
+                       <label class="form-label">Select Company</label>
+                       <select [(ngModel)]="form.company_id" class="form-select">
+                         <option *ngFor="let company of companies" value={{company.id}}>{{company.name}}</option>
+                         </select>
+                     </div>
+                     </div> -->
+
+                  <!--   <div class="alert alert-info" role="alert">
+                       By clicking the next button, you agree that material type might attract extra cost after order is
+                       reviewed.
+
+                     </div>-->
+                    </div>
+
+         <div class="col-md-12" *ngIf="error != null">
+           <div class="alert alert-danger" role="alert">
+             {{error}}
+           </div>
+         </div>
+         <span *ngIf="buttonClicked">Please Wait...</span>
+         <button *ngIf="!buttonClicked" (click)="addOrderAction()" type="button" class="btn btn-success btn-block">
+           <i class="fa fa-arrow-right"></i> Next
+         </button>
+
+         </div>
+<!-- Form end -->
+
+<!--Form starts-->
+<div *ngIf="secondForm" class="row">
+<div class="col-md-12">
+<div class="form-group">
+<label class="form-label">Truck Type</label>
+<select [(ngModel)]="form2.truck_type" class="form-select">
+<option *ngFor="let truck of truckType" value={{truck}}> {{truck}} </option>
+</select>
+</div>
+</div>
+
+<div class="col-md-12">
+<div class="form-group">
+<label class="form-label">Tonnage</label>
+<input [(ngModel)]="form2.tonnage" type="number" class="form-control" />
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Start Point State</label>
+<select [(ngModel)]="form2.start_point_state" (ngModelChange)="findCityStart2()" class="form-select">
+<option *ngFor="let state of states" value={{state.state}}>{{state.state}}</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Start Point City</label>
+<select [(ngModel)]="form2.start_point_city" class="form-select">
+<option *ngFor="let city of cities2" value={{city}}>{{city}}</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-12">
+<div class="form-group">
+<label class="form-label">Start Point Address</label>
+<textarea [(ngModel)]="form2.start_point_address" class="form-control"></textarea>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">End Point State</label>
+<select [(ngModel)]="form2.end_point_state" (ngModelChange)="findCityEnd2()" class="form-select">
+<option *ngFor="let state of states" value={{state.state}}>{{state.state}}</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">End Point City</label>
+<select [(ngModel)]="form2.end_point_city" class="form-select">
+<option *ngFor="let city of cities02" value={{city}}>{{city}}</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-12">
+<div class="form-group">
+<label class="form-label">End Point Address</label>
+<textarea [(ngModel)]="form2.end_point_address" class="form-control"></textarea>
+</div>
+</div>
+
+<div class="col-md-12" *ngIf="error != null">
+<div class="alert alert-danger" role="alert">
+{{error}}
+</div>
+</div>
+<span *ngIf="buttonClicked">Please Wait...</span>
+<button *ngIf="!buttonClicked" (click)="updateTruckingOrderAction()" type="button" class="btn btn-success btn-block">
+<i class="fa fa-arrow-right"></i> Next </button>
+
+</div>
+<!-- Form end -->
+
+<!--Form starts-->
+<div *ngIf="thirdForm" class="row">
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Product Name
+</label>
+<input type="text" [(ngModel)]="form3.product_name" class="form-control" />
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Storage Type</label>
+<select [(ngModel)]="form3.warehousing_type" class="form-select">
+<option *ngFor="let storage of storageType" value={{storage}}> {{storage}} </option>
+</select>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Location State</label>
+<select [(ngModel)]="form3.start_point_state" (ngModelChange)="findCityStart3()" class="form-select">
+<option *ngFor="let state of states" value={{state.state}}>{{state.state}}</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Location City</label>
+<select [(ngModel)]="form3.start_point_city" class="form-select">
+<option *ngFor="let city of cities3" value={{city}}>{{city}}</option>
+</select>
+</div>
+</div>
+
+<div class="col-md-12">
+<div class="form-group">
+<label class="form-label">Address</label>
+<textarea [(ngModel)]="form3.start_point_address" class="form-control"></textarea>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Size (number of pallets)
+</label>
+<input type="number" [(ngModel)]="form3.size" class="form-control" />
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="form-group">
+<label class="form-label">Duration (In days)</label>
+<input type="number" [(ngModel)]="form3.duration" class="form-control" />
+</div>
+</div>
+
+<div class="col-md-12" *ngIf="error != null">
+<div class="alert alert-danger" role="alert">
+{{error}}
+</div>
+</div>
+<span *ngIf="buttonClicked">Please Wait...</span>
+<button *ngIf="!buttonClicked" (click)="updateWarehousingOrderAction()" type="button" class="btn btn-success btn-block">
+<i class="fa fa-arrow-right"></i> Next </button>
+
+</div>
+<!-- Form end -->
+
+     </div>
+
+    </div>
+</div>
+<!--------------->
+
+                             </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+</section>
+</div>
+</div>
+<div class="control-sidebar-bg"></div>
+</div>

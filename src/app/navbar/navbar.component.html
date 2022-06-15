@@ -1,0 +1,73 @@
+<aside *ngIf="token!=null" class="main-sidebar bg-warning">
+        <section class="sidebar position-relative">
+              <div class="multinav">
+              <div class="multinav-scroll" style="height: 100%;">
+                  <ul class="sidebar-menu" data-widget="tree">
+                    <li class="treeview">
+                      <a (click)="hrefLink('/')" [routerLink]="['/']" routerLinkActive="router-link-active" >
+                        <i data-feather="monitor"></i>
+                        <span>Dashboard</span>
+                      </a>
+                    </li>
+                    <li class="treeview">
+                      <a href="#">
+                        <i data-feather="user"></i>
+                        <span>Profile</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-right pull-right"></i>
+                        </span>
+                      </a>
+                      <ul class="treeview-menu">
+                        <li class="treeview">
+                          <a (click)="hrefLink('/profile')" [routerLink]="['/profile']" routerLinkActive="router-link-active" >
+                              <i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>View Profile
+                            </a>
+                             </li>
+                             <li class="treeview">
+                              <a (click)="hrefLink('/companies')" [routerLink]="['/companies']" routerLinkActive="router-link-active" >
+                                  <i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Company
+                                </a>
+                                 </li>
+                                 <li class="treeview">
+                              <a (click)="hrefLink('/account_settings')" [routerLink]="['/account_settings']" routerLinkActive="router-link-active" >
+                                  <i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Account Settings
+                                </a>
+                                 </li>
+                               <li class="treeview">
+                            <a (click)="hrefLink('/change_password')" [routerLink]="['/change_password']" routerLinkActive="router-link-active" >
+                                <i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Change Password
+                              </a>
+                               </li>
+
+						</ul>
+                    </li>
+                    <li class="treeview">
+                      <a (click)="hrefLink('/orders')" [routerLink]="['/orders']" routerLinkActive="router-link-active" >
+                        <i data-feather="server"></i>
+                        <span>Orders</span>
+                        </a>
+                         </li>
+
+                         <li class="treeview">
+                          <a (click)="hrefLink('/add_order')" [routerLink]="['/add_order']" routerLinkActive="router-link-active" >
+                            <i data-feather="plus"></i>
+                            <span>New Oder</span>
+                            </a>
+                             </li>
+
+
+
+                    <li class="treeview">
+                      <a (click)="logOutAction()" href="#">
+                        <i data-feather="log-out"></i>
+                        <span>Logout</span>
+                      </a>
+                       </li>
+
+                  </ul>
+
+
+              </div>
+            </div>
+        </section>
+      </aside>

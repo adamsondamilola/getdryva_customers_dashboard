@@ -1,0 +1,120 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">xLogistics...</p>
+</ngx-spinner>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+
+      <div class="col-12">
+  <div class="row">
+  <div class="box-header with-border">
+    <h4 class="box-title">Order Reports</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-12 col-12">
+    <div class="row">
+         <div class="box-body">
+        <div class="row">
+
+          <div (click)="viewOrderList('orders')" class="col-xl-3 col-lg-6 col-12">
+            <div class="box">
+              <div class="box-body">
+                <div class="d-flex justify-content-between">
+                  <h3 class="my-0 fw-600 text-dark">{{counter.total}}</h3>
+                  <div class="w-40 h-40 bg-success rounded-circle text-center fs-24 l-h-40"><i class="fa fa-shopping-bag"></i></div>
+                </div>
+                <p class="fs-18 mt-10">Total Orders</p>
+              </div>
+            </div>
+          </div>
+
+          <div (click)="viewOrderList('pending_orders')" class="col-xl-3 col-lg-6">
+            <div class="box">
+              <div class="box-body">
+                <div class="d-flex justify-content-between">
+                  <h3 class="my-0 fw-600 text-dark">{{counter.pending}}</h3>
+                  <div class="w-40 h-40 bg-danger rounded-circle text-center fs-24 l-h-40">
+                    <i class="fa fa-clock-o"></i></div>
+                </div>
+                <p class="fs-18 mt-10">Pending Orders</p>
+              </div>
+            </div>
+          </div>
+
+          <div (click)="viewOrderList('processing_orders')" class="col-xl-3 col-lg-6 col-12">
+            <div class="box">
+              <div class="box-body">
+                <div class="d-flex justify-content-between">
+                  <h3 class="my-0 fw-600 text-dark">{{counter.processing}}</h3>
+                  <div class="w-40 h-40 bg-primary rounded-circle text-center fs-24 l-h-40">
+                    <i class="fa fa-refresh"></i>
+                  </div>
+                </div>
+                <p class="fs-18 mt-10">Processing Orders</p>
+              </div>
+            </div>
+          </div>
+
+          <div (click)="viewOrderList('completed_orders')" class="col-xl-3 col-lg-6">
+            <div class="box">
+              <div class="box-body">
+                <div class="d-flex justify-content-between">
+                  <h3 class="my-0 fw-600 text-dark">{{counter.completed}}</h3>
+                  <div class="w-40 h-40 bg-success rounded-circle text-center fs-24 l-h-40"><i class="fa fa-check"></i></div>
+                </div>
+                <p class="fs-18 mt-10">Completed Orders</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+  <!-- /.box-header -->
+  <div class="box">
+    <div class="table-responsive">
+      <table class="table table-hover">
+      <tbody><tr>
+        <!-- <th>Delivery Progress</th>-->
+        <th>Date</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Order ID</th>
+        <th>Amount</th>
+      </tr>
+      <tr (click)="viewOrderAction(item.tracking_id)" *ngFor="let item of orders">
+        <!-- <td><a href="javascript:void(0)">{{item.progress}}%</a></td> -->
+        <td><span class="text-muted">{{formatOrderDate(item.date_added)}}</span> </td>
+        <td><a href="javascript:void(0)">{{item.service_type}}</a></td>
+        <td><span class="badge badge-pill badge-danger" *ngIf="item.status==0">Pending Review</span>
+          <span class="badge badge-pill badge-primary" *ngIf="item.status==1">Pending Payment</span>
+          <span class="badge badge-pill badge-warning" *ngIf="item.status==2">Proccessing</span>
+          <span class="badge badge-pill badge-success" *ngIf="item.status==3">Completed</span></td>
+          <td>{{item.tracking_id}}</td>
+          <td><a href="javascript:void(0)">{{formatNum(item.cost)}}</a></td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <!-- /.box-body -->
+  </div>
+  <!-- /.box -->
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>

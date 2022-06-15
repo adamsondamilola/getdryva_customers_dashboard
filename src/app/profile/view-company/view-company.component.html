@@ -1,0 +1,84 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#fff"
+type="ball-scale-multiple"
+>
+<p style="font-size: 20px; color: white">xLogistics...</p>
+</ngx-spinner>
+
+<div class="wrapper">
+  <div class="content-wrapper">
+<div class="container-full">
+<section class="content">
+    <div class="row">
+        <div class="col-xl-12 col-12">
+            <div class="">
+<!--
+   <div class="box-header">
+                    <h4 class="box-title">Account Status: <span *ngIf="company.status==0" class="text-danger">Pending</span>
+                      <span *ngIf="company.status==1" class="text-success">Approved</span> </h4>
+                   </div>
+-->
+                <div class="box-body">
+                    <div class="row mb-20">
+                      <div class="row justify-content-center">
+                            <div class="col-12 col-lg-12 col-xl-6">
+                              <div class="box box-widget widget-user">
+                               <!-- Add the bg color to the header using any of the bg-* classes -->
+                               <div class="widget-user-header bg-img bbsr-0 bber-0" style="background: url('../images/gallery/full/10.jpg') center center;" data-overlay="5">
+                                 <h3 class="widget-user-username text-white">{{company.name}}</h3>
+                                 <h6 class="widget-user-desc text-white">Account Type:
+                                   <span *ngIf="company.status==1">{{company.account_type}}</span>
+                                  <span *ngIf="company.status==0">Pending</span> </h6>
+                               </div>
+                               <div class="widget-user-image">
+                                 <img class="rounded-circle" src="{{company.logo}}" alt="User Avatar">
+                               </div>
+                               <div class="box-footer">
+                                 <div class="row">
+
+
+                                 <!-- /.col -->
+                                 </div>
+                                 <!-- /.row -->
+                               </div>
+                               </div>
+                               <div class="box">
+                               <div class="box-body box-profile">
+                                 <div class="row">
+                                 <div class="col-12">
+                                   <div>
+                                    <p>Company Name :<span class="text-gray ps-10">{{company.name}}</span> </p>
+                                    <p>Comapny Email :<span class="text-gray ps-10">{{company.email}}</span> </p>
+                                    <p>Company Phone :<span class="text-gray ps-10">{{company.phone}}</span></p>
+                                    <p>State :<span class="text-gray ps-10">{{company.state}}</span> </p>
+                                    <p>City :<span class="text-gray ps-10">{{company.city}}</span> </p>
+                                    <p>Address :<span class="text-gray ps-10">{{company.address}}</span></p>
+                                   </div>
+                                 </div>
+                                 </div>
+                               </div>
+                               <!-- /.box-body -->
+                               </div>
+
+
+                             </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+
+    </div>
+</section>
+</div>
+</div>
+<div class="control-sidebar-bg"></div>
+</div>
